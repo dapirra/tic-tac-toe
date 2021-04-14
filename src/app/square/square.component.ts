@@ -11,6 +11,7 @@ import { Component, Input } from '@angular/core';
     button {
       width: 100%;
       height: 100%;
+      transition-property: none !important;
       font-size: 5em !important;
     }`
   ]
