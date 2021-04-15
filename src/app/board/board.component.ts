@@ -31,6 +31,7 @@ export class BoardComponent implements OnInit {
       this.squares.splice(idx, 1, this.player);
       this.xIsNext = !this.xIsNext;
     }
+
     this.winner = this.calculateWinner();
   }
 
@@ -45,6 +46,7 @@ export class BoardComponent implements OnInit {
       [0, 4, 8],
       [2, 4, 6]
     ];
+
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (
@@ -55,6 +57,7 @@ export class BoardComponent implements OnInit {
         return this.squares[a];
       }
     }
+
     return null;
   }
 }
