@@ -2,13 +2,13 @@
 
 <button nbButton outline status="danger" (click)="newGame()">Start new Game</button>
 
-<h2 *ngIf="winner">
+<h4 *ngIf="winner">
   Player {{winner}} won the game!
-</h2>
+</h4>
 
-<h2 *ngIf="movesLeft === 0 && !winner">
+<h4 *ngIf="movesLeft === 0 && !winner">
   It's a draw!
-</h2>
+</h4>
 
 <main>
   <app-square
