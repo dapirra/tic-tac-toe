@@ -29,15 +29,15 @@ export class BoardComponent implements OnInit {
   }
 
   makeMove(idx: number) {
-    // Don't allow any moves to be made if there is a winner
+    // Do not allow any moves to be made if there is a winner
     if (this.winner !== null) {
       return;
     }
 
-    if (!this.squares[idx]) {
-      this.squares[idx] = this.player;
-      this.xIsNext = !this.xIsNext;
-      this.movesLeft--;
+    if (!this.squares[idx]) { // If move is on an empty square
+      this.squares[idx] = this.player; // Set value to current player character
+      this.xIsNext = !this.xIsNext; // Set it to the next players turn
+      this.movesLeft--; // Subtract from the total number of moves remaining
     }
 
     this.winner = this.calculateWinner();
@@ -55,10 +55,11 @@ export class BoardComponent implements OnInit {
       [2, 4, 6], // Forward Diagonal /
     ];
 
+    // Loop through all win cases to see if a player won
     for (let line of lines) {
       const [a, b, c] = line;
-      if (
-        this.squares[a] &&
+      if ( // @-- Make sure the square is defined; can't have 3 nulls in a row
+        this.squares[a] && // <--@
         this.squares[a] === this.squares[b] &&
         this.squares[a] === this.squares[c]
       ) {
