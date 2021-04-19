@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
     <button nbButton *ngIf="!value">{{ value }}</button>
     <button nbButton *ngIf="value == 'X'" hero status="success">{{ value }}</button>
     <button nbButton *ngIf="value == 'O'" hero status="info">{{ value }}</button>
+    <button nbButton *ngIf="value?.length > 1" hero status="warning">{{ value.charAt(0) }}</button>
   `,
   styles: [`
     button {
