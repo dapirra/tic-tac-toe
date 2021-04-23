@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
+import { GameOptionsComponent } from './../game-options/game-options.component';
 
 @Component({
   selector: 'app-board',
@@ -7,15 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
   squares: string[];
+  xGoesFirst: boolean | null;
   xIsNext: boolean;
   winner: string;
   movesLeft: number;
   private static winningLines: number[][];
 
-  constructor() {}
+  constructor(private dialogService: NbDialogService) {}
 
   ngOnInit(): void {
-    this.newGame();
+    this.newGameOptions();
     BoardComponent.winningLines = [
       [0, 1, 2], // Top Row
       [3, 4, 5], // Middle Row
@@ -28,11 +31,33 @@ export class BoardComponent implements OnInit {
     ];
   }
 
+  /**
+   * Start a new game with new options set.
+   *
+   * @param xGoesFirst True for X first, false for O first, null for random.
+   */
+  newGameOptions(xGoesFirst: boolean | null = true) {
+    this.xGoesFirst = xGoesFirst;
+    this.newGame();
+  }
+
+  /**
+   * Start a new game with the current options.
+   */
   newGame() {
     this.squares = Array(9).fill(null);
     this.winner = null;
-    this.xIsNext = true;
+    this.xIsNext = (this.xGoesFirst === null ? Math.random() >= 0.5 : this.xGoesFirst);
     this.movesLeft = 9;
+  }
+
+  showDialog() {
+    const gameOptionsDialog = this.dialogService.open(GameOptionsComponent);
+    gameOptionsDialog.onClose.subscribe(config => {
+      if (config?.isValid) {
+        this.newGameOptions(config.xGoesFirst);
+      }
+    });
   }
 
   get player() {

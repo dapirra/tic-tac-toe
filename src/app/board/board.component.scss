@@ -5,6 +5,10 @@ main {
   grid-gap: 0px;
 }
 
+.buttons > :first-child {
+  margin-right: 1em;
+}
+
 app-square {
   border: 1px gray solid;
   height: min(200px, 30vmin);

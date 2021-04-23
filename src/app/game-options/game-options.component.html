@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <nb-radio-group [(value)]="selectedOption">
+      <nb-radio value="0">Player X goes first.</nb-radio>
+      <nb-radio value="1">Player O goes first.</nb-radio>
+      <nb-radio value="2">Random Player goes first.</nb-radio>
+    </nb-radio-group>
+  </nb-card-body>
+  <nb-card-footer>
+    <button id="beginButton" nbButton hero status="primary" (click)="begin()">Begin</button>
+  </nb-card-footer>
+</nb-card>
