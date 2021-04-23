@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-header>{{ title }}</nb-card-header>
   <nb-card-body>
-    <nb-radio-group [(value)]="selectedOption">
+    <nb-radio-group [(value)]="xGoesFirstOption">
       <nb-radio [value]="true">Player X goes first.</nb-radio>
       <nb-radio [value]="false">Player O goes first.</nb-radio>
       <nb-radio [value]="null">Random Player goes first.</nb-radio>

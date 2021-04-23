@@ -9,20 +9,20 @@ import { NbDialogRef } from '@nebular/theme';
 export class GameOptionsComponent implements OnInit {
 
   @Input() title: string = 'Game Options';
-  selectedOption: boolean | null;
-  private static savedOptions = {'selectedOption': true};
+  xGoesFirstOption: boolean | null;
+  private static savedOptions = {'xGoesFirstOption': true};
 
   constructor(protected ref: NbDialogRef<GameOptionsComponent>) {}
 
   ngOnInit(): void {
     document.getElementById('beginButton').focus();
-    this.selectedOption = GameOptionsComponent.savedOptions.selectedOption;
+    this.xGoesFirstOption = GameOptionsComponent.savedOptions.xGoesFirstOption;
   }
 
   begin() {
-    GameOptionsComponent.savedOptions.selectedOption = this.selectedOption;
+    GameOptionsComponent.savedOptions.xGoesFirstOption = this.xGoesFirstOption;
     this.ref.close({
-      'xGoesFirst': this.selectedOption,
+      'xGoesFirst': this.xGoesFirstOption,
     });
   }
 }
