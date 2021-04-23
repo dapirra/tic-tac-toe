@@ -10,7 +10,7 @@ export class GameOptionsComponent implements OnInit {
 
   @Input() title: string = 'Game Options';
   selectedOption: string;
-  private static _selectedOption: string = '0';
+  private static savedOptions = {'selectedOption': '0'};
   private whoGoesFirst = [
     true,  // X
     false, // O
@@ -21,11 +21,11 @@ export class GameOptionsComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('beginButton').focus();
-    this.selectedOption = GameOptionsComponent._selectedOption;
+    this.selectedOption = GameOptionsComponent.savedOptions.selectedOption;
   }
 
   begin() {
-    GameOptionsComponent._selectedOption = this.selectedOption;
+    GameOptionsComponent.savedOptions.selectedOption = this.selectedOption;
     this.ref.close({
       'isValid': true,
       'xGoesFirst': this.whoGoesFirst[this.selectedOption],
