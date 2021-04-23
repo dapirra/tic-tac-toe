@@ -27,7 +27,6 @@ export class GameOptionsComponent implements OnInit {
   begin() {
     GameOptionsComponent.savedOptions.selectedOption = this.selectedOption;
     this.ref.close({
-      'isValid': true,
       'xGoesFirst': this.whoGoesFirst[this.selectedOption],
     });
   }
