@@ -2,9 +2,9 @@
   <nb-card-header>{{ title }}</nb-card-header>
   <nb-card-body>
     <nb-radio-group [(value)]="selectedOption">
-      <nb-radio value="0">Player X goes first.</nb-radio>
-      <nb-radio value="1">Player O goes first.</nb-radio>
-      <nb-radio value="2">Random Player goes first.</nb-radio>
+      <nb-radio [value]="true">Player X goes first.</nb-radio>
+      <nb-radio [value]="false">Player O goes first.</nb-radio>
+      <nb-radio [value]="null">Random Player goes first.</nb-radio>
     </nb-radio-group>
   </nb-card-body>
   <nb-card-footer>

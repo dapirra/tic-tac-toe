@@ -9,13 +9,8 @@ import { NbDialogRef } from '@nebular/theme';
 export class GameOptionsComponent implements OnInit {
 
   @Input() title: string = 'Game Options';
-  selectedOption: string;
-  private static savedOptions = {'selectedOption': '0'};
-  private whoGoesFirst = [
-    true,  // X
-    false, // O
-    null   // Random
-  ];
+  selectedOption: boolean | null;
+  private static savedOptions = {'selectedOption': true};
 
   constructor(protected ref: NbDialogRef<GameOptionsComponent>) {}
 
@@ -27,7 +22,7 @@ export class GameOptionsComponent implements OnInit {
   begin() {
     GameOptionsComponent.savedOptions.selectedOption = this.selectedOption;
     this.ref.close({
-      'xGoesFirst': this.whoGoesFirst[this.selectedOption],
+      'xGoesFirst': this.selectedOption,
     });
   }
 }
