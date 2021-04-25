@@ -1,17 +1,19 @@
-<h1>Current Player: {{player}} </h1>
+<h1 *ngIf="movesLeft !== 0 && !winner">
+  Current Player: {{player}}
+</h1>
+
+<h1 *ngIf="winner">
+  Player {{winner}} won the game!
+</h1>
+
+<h1 *ngIf="movesLeft === 0 && !winner">
+  It's a draw!
+</h1>
 
 <div class="buttons">
   <button nbButton outline status="danger" (click)="newGame()">Start New Game</button>
   <button nbButton outline status="danger" (click)="showDialog()">Game Options</button>
 </div>
-
-<h4 *ngIf="winner">
-  Player {{winner}} won the game!
-</h4>
-
-<h4 *ngIf="movesLeft === 0 && !winner">
-  It's a draw!
-</h4>
 
 <main>
   <app-square
