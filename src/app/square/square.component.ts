@@ -14,9 +14,9 @@ import { Component, Input } from '@angular/core';
       height: 100%;
       transition-property: none !important;
       font-size: 5em !important;
-    }`
-  ]
+    }
+  `]
 })
 export class SquareComponent {
-  @Input() value: 'X' | 'O';
+  @Input() value: 'X' | 'O' | 'X!' | 'O!';
 }
