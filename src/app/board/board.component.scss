@@ -12,3 +12,25 @@ main {
 app-square {
   height: min(200px, 30vmin);
 }
+
+// Swap the 'Game Options' button for a cog button at low enough resolutions
+
+@media (max-width: 359px) {
+  .buttons > :nth-child(2) {
+    display: none;
+  }
+
+  .buttons > :nth-child(3) {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 360px) {
+  .buttons > :nth-child(2) {
+    display: inline-flex;
+  }
+
+  .buttons > :nth-child(3) {
+    display: none;
+  }
+}

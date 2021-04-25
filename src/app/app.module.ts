@@ -12,7 +12,8 @@ import {
   NbButtonModule,
   NbDialogModule,
   NbCardModule,
-  NbRadioModule
+  NbRadioModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -33,6 +34,7 @@ import { GameOptionsComponent } from './game-options/game-options.component';
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbLayoutModule,
     NbEvaIconsModule,
+    NbIconModule,
     NbButtonModule,
     NbCardModule,
     NbRadioModule,
