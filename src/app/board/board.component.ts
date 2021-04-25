@@ -53,7 +53,7 @@ export class BoardComponent implements OnInit {
 
   showDialog() {
     const gameOptionsDialog = this.dialogService.open(GameOptionsComponent);
-    gameOptionsDialog.onClose.subscribe(config => {
+    gameOptionsDialog.onClose.toPromise().then(config => {
       if (config) {
         this.newGameOptions(config.xGoesFirst);
       }
