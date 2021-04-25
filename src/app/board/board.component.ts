@@ -64,14 +64,14 @@ export class BoardComponent implements OnInit {
     return this.xIsNext ? 'X' : 'O';
   }
 
-  makeMove(idx: number) {
+  makeMove(index: number) {
     // Do not allow any moves to be made if there is a winner
     if (this.winner !== null) {
       return;
     }
 
-    if (!this.squares[idx]) { // If move is on an empty square
-      this.squares[idx] = this.player; // Set value to current player character
+    if (!this.squares[index]) { // If move is on an empty square
+      this.squares[index] = this.player; // Set value to current player
       this.xIsNext = !this.xIsNext; // Set it to the next players turn
       this.movesLeft--; // Subtract from the total number of moves remaining
     }
