@@ -2,7 +2,7 @@ main {
   margin-top: 1.5em;
   display: grid;
   grid-template-columns: min(200px, 30vmin) min(200px, 30vmin) min(200px, 30vmin);
-  grid-gap: 0px;
+  grid-gap: 0.25rem;
 }
 
 .buttons > :first-child {
@@ -10,6 +10,5 @@ main {
 }
 
 app-square {
-  border: 1px gray solid;
   height: min(200px, 30vmin);
 }

@@ -14,6 +14,8 @@ import { Component, Input } from '@angular/core';
       height: 100%;
       transition-property: none !important;
       font-size: 5em !important;
+      background-color: #323259 !important;
+      border: 0 !important;
     }
   `]
 })
