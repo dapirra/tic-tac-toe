@@ -11,6 +11,7 @@ export class GameOptionsComponent implements OnInit {
   @Input() title: string = 'Game Options';
   xGoesFirstOption: boolean | null;
   private static savedOptions = {'xGoesFirstOption': true};
+  private static alternatePlayer = true;
 
   constructor(protected ref: NbDialogRef<GameOptionsComponent>) {}
 
@@ -24,5 +25,13 @@ export class GameOptionsComponent implements OnInit {
     this.ref.close({
       'xGoesFirst': this.xGoesFirstOption,
     });
+  }
+
+  randomFirstPlayer(): boolean {
+    return Math.random() >= 0.5;
+  }
+
+  alternateFirstPlayer(): boolean {
+    return GameOptionsComponent.alternatePlayer = !GameOptionsComponent.alternatePlayer;
   }
 }

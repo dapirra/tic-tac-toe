@@ -9,7 +9,7 @@ import { GameOptionsComponent } from './../game-options/game-options.component';
 })
 export class BoardComponent implements OnInit {
   squares: string[];
-  xGoesFirst: boolean | null;
+  xGoesFirst: boolean | Function;
   xIsNext: boolean;
   winner: string;
   movesLeft: number;
@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit {
   newGame() {
     this.squares = Array(9).fill(null);
     this.winner = null;
-    this.xIsNext = (this.xGoesFirst === null ? Math.random() >= 0.5 : this.xGoesFirst);
+    this.xIsNext = (typeof this.xGoesFirst === 'function' ? this.xGoesFirst() : this.xGoesFirst);
     this.movesLeft = 9;
   }
 

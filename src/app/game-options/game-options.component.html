@@ -4,7 +4,8 @@
     <nb-radio-group [(value)]="xGoesFirstOption">
       <nb-radio [value]="true">Player X goes first.</nb-radio>
       <nb-radio [value]="false">Player O goes first.</nb-radio>
-      <nb-radio [value]="null">Random Player goes first.</nb-radio>
+      <nb-radio [value]="randomFirstPlayer">Random Player goes first.</nb-radio>
+      <nb-radio [value]="alternateFirstPlayer">Alternate Player turns.</nb-radio>
     </nb-radio-group>
   </nb-card-body>
   <nb-card-footer>
