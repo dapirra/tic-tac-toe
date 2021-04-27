@@ -16,6 +16,7 @@ export class BoardComponent implements OnInit {
   computerIsX: boolean;
   computerGoesFirst: boolean;
   computersTurn: boolean;
+  computerVsComputer: boolean;
   availableSquares: Set<number>;
   private static winningLines: number[][];
 
@@ -44,10 +45,12 @@ export class BoardComponent implements OnInit {
       xGoesFirst: boolean | null = true,
       vsComputer: boolean = false,
       computerIsX: boolean = false,
+      computerVsComputer: boolean = false,
     ) {
     this.xGoesFirst = xGoesFirst;
     this.vsComputer = vsComputer;
     this.computerIsX = computerIsX;
+    this.computerVsComputer = computerVsComputer;
     this.newGame();
   }
 
@@ -61,7 +64,12 @@ export class BoardComponent implements OnInit {
     this.availableSquares = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     this.computersTurn = false;
     this.computerGoesFirst = this.vsComputer && (this.xIsNext === this.computerIsX);
-    if (this.computerGoesFirst) {
+    if (this.computerVsComputer) {
+      // this.xIsNext = !this.computerIsX;
+      // this.computerIsX = !this.xIsNext;
+      this.xIsNext = !this.xIsNext;
+      this.makeComputerMove();
+    } else if (this.computerGoesFirst) {
       this.makeMove(-1);
       this.xIsNext = !this.xIsNext;
     }
@@ -75,6 +83,7 @@ export class BoardComponent implements OnInit {
           config.xGoesFirst,
           config.vsComputer,
           config.computerIsX,
+          config.computerVsComputer,
         );
       }
     });
@@ -88,7 +97,8 @@ export class BoardComponent implements OnInit {
     if (
       !this.squares[index] && // If move is not on an empty square and
       !this.computersTurn && // If it's not the computer's turn and
-      this.winner === null // If a winner has not been determined
+      this.winner === null && // If a winner has not been determined and
+      !this.computerVsComputer // If the computer is not versing itself
     ) {
       if (this.vsComputer) {
         this.computersTurn = !this.computersTurn;
@@ -112,13 +122,21 @@ export class BoardComponent implements OnInit {
     setTimeout(() => {
       if (this.availableSquares.size !== 0 && this.winner === null) {
         let move = this.computerEasyMove();
-        this.squares[move] = this.computerIsX ? 'X' : 'O'; // Set value to current player
+        this.squares[move] = this.computerVsComputer ? this.player : (this.computerIsX ? 'X' : 'O');
         this.availableSquares.delete(move);
         this.calculateWinner();
-        this.computersTurn = !this.computersTurn;
+
+        if (!this.computerVsComputer) {
+          this.computersTurn = !this.computersTurn;
+        }
+
+        if (this.computerVsComputer) {
+          this.xIsNext = !this.xIsNext;
+          this.makeComputerMove()
+        }
       }
       this.xIsNext = !this.xIsNext;
-    }, 1000);
+    }, this.computerVsComputer ? 250 : 750);
   }
 
   calculateWinner() {

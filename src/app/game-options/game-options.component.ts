@@ -19,6 +19,7 @@ export class GameOptionsComponent implements OnInit {
     'xGoesFirst': true,
     'vsComputer': false,
     'computerIsX': false,
+    'computerVsComputer': false,
     'computerDifficulty': 0,
   };
 
@@ -41,6 +42,7 @@ export class GameOptionsComponent implements OnInit {
     this.computerDifficultyOption = GameOptionsComponent.savedOptions.computerDifficulty;
     this.vsComputerOption = GameOptionsComponent.savedOptions.vsComputer;
     this.computerIsXOption = GameOptionsComponent.savedOptions.computerIsX;
+    this.computerVsComputerOption = GameOptionsComponent.savedOptions.computerVsComputer;
   }
 
   private saveData() {
@@ -48,6 +50,7 @@ export class GameOptionsComponent implements OnInit {
     GameOptionsComponent.savedOptions.computerDifficulty = this.computerDifficultyOption;
     GameOptionsComponent.savedOptions.vsComputer = this.vsComputerOption;
     GameOptionsComponent.savedOptions.computerIsX = this.computerIsXOption;
+    GameOptionsComponent.savedOptions.computerVsComputer = this.computerVsComputerOption;
   }
 
   randomFirstPlayer(): boolean {
