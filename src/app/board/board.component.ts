@@ -12,7 +12,11 @@ export class BoardComponent implements OnInit {
   xGoesFirst: boolean | Function;
   xIsNext: boolean;
   winner: string;
-  movesLeft: number;
+  vsComputer: boolean;
+  computerIsX: boolean;
+  computerGoesFirst: boolean;
+  computersTurn: boolean;
+  availableSquares: Set<number>;
   private static winningLines: number[][];
 
   constructor(private dialogService: NbDialogService) {}
@@ -36,8 +40,15 @@ export class BoardComponent implements OnInit {
    *
    * @param xGoesFirst True for X first, false for O first, null for random.
    */
-  newGameOptions(xGoesFirst: boolean | null = true) {
+  newGameOptions(
+      xGoesFirst: boolean | null = true,
+      vsComputer: boolean = false,
+      computerIsX: boolean = false,
+    ) {
     this.xGoesFirst = xGoesFirst;
+    this.vsComputer = vsComputer;
+    this.computerIsX = computerIsX;
+    this.computersTurn = false;
     this.newGame();
   }
 
@@ -48,14 +59,24 @@ export class BoardComponent implements OnInit {
     this.squares = Array(9).fill(null);
     this.winner = null;
     this.xIsNext = (typeof this.xGoesFirst === 'function' ? this.xGoesFirst() : this.xGoesFirst);
-    this.movesLeft = 9;
+    this.availableSquares = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+    this.computersTurn = false;
+    this.computerGoesFirst = this.vsComputer && (this.xIsNext === this.computerIsX);
+    if (this.computerGoesFirst) {
+      this.makeMove(-1);
+      this.xIsNext = !this.xIsNext;
+    }
   }
 
   showDialog() {
     const gameOptionsDialog = this.dialogService.open(GameOptionsComponent);
     gameOptionsDialog.onClose.toPromise().then(config => {
       if (config) {
-        this.newGameOptions(config.xGoesFirst);
+        this.newGameOptions(
+          config.xGoesFirst,
+          config.vsComputer,
+          config.computerIsX,
+        );
       }
     });
   }
@@ -65,18 +86,37 @@ export class BoardComponent implements OnInit {
   }
 
   makeMove(index: number) {
-    // Do not allow any moves to be made if there is a winner
-    if (this.winner !== null) {
+    // Do not allow any moves to be made if there is a winner or computer's turn
+    if (this.winner !== null || this.computersTurn) {
       return;
     }
 
     if (!this.squares[index]) { // If move is on an empty square
-      this.squares[index] = this.player; // Set value to current player
-      this.xIsNext = !this.xIsNext; // Set it to the next players turn
-      this.movesLeft--; // Subtract from the total number of moves remaining
-    }
+      if (this.vsComputer) {
+        this.computersTurn = !this.computersTurn;
+      }
 
-    this.calculateWinner();
+      this.squares[index] = this.player; // Set value to current player
+      if (!this.vsComputer) {
+        this.xIsNext = !this.xIsNext; // Set it to the next players turn
+      }
+      this.availableSquares.delete(index);
+      this.calculateWinner();
+
+      if (this.vsComputer) {
+        this.xIsNext = !this.xIsNext;
+        setTimeout(() => {
+          if (this.availableSquares.size !== 0 && this.winner === null) {
+            let move = Array.from(this.availableSquares.values())[Math.floor(Math.random() * this.availableSquares.size)];
+            this.squares[move] = this.computerIsX ? 'X' : 'O'; // Set value to current player
+            this.availableSquares.delete(move);
+            this.computersTurn = !this.computersTurn;
+            this.calculateWinner();
+          }
+          this.xIsNext = !this.xIsNext;
+        }, 1000);
+      }
+    }
   }
 
   calculateWinner() {

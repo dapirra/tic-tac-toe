@@ -14,6 +14,9 @@ import {
   NbCardModule,
   NbRadioModule,
   NbIconModule,
+  NbAccordionModule,
+  NbToggleModule,
+  NbSelectModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -39,6 +42,9 @@ import { GameOptionsComponent } from './game-options/game-options.component';
     NbCardModule,
     NbRadioModule,
     NbDialogModule.forRoot(),
+    NbAccordionModule,
+    NbToggleModule,
+    NbSelectModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

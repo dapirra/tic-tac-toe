@@ -10,21 +10,44 @@ export class GameOptionsComponent implements OnInit {
 
   @Input() title: string = 'Game Options';
   xGoesFirstOption: boolean | null;
-  private static savedOptions = {'xGoesFirstOption': true};
+  vsComputerOption: boolean;
+  computerIsXOption: boolean;
+  computerDifficultyOption: number;
+  computerVsComputerOption: boolean;
   private static alternatePlayer = true;
+  private static savedOptions = {
+    'xGoesFirst': true,
+    'vsComputer': false,
+    'computerIsX': false,
+    'computerDifficulty': 0,
+  };
 
   constructor(protected ref: NbDialogRef<GameOptionsComponent>) {}
 
   ngOnInit(): void {
     document.getElementById('beginButton').focus();
-    this.xGoesFirstOption = GameOptionsComponent.savedOptions.xGoesFirstOption;
+    this.loadData();
   }
 
   begin() {
-    GameOptionsComponent.savedOptions.xGoesFirstOption = this.xGoesFirstOption;
+    this.saveData();
     this.ref.close({
-      'xGoesFirst': this.xGoesFirstOption,
+      ...GameOptionsComponent.savedOptions
     });
+  }
+
+  private loadData() {
+    this.xGoesFirstOption = GameOptionsComponent.savedOptions.xGoesFirst;
+    this.computerDifficultyOption = GameOptionsComponent.savedOptions.computerDifficulty;
+    this.vsComputerOption = GameOptionsComponent.savedOptions.vsComputer;
+    this.computerIsXOption = GameOptionsComponent.savedOptions.computerIsX;
+  }
+
+  private saveData() {
+    GameOptionsComponent.savedOptions.xGoesFirst = this.xGoesFirstOption;
+    GameOptionsComponent.savedOptions.computerDifficulty = this.computerDifficultyOption;
+    GameOptionsComponent.savedOptions.vsComputer = this.vsComputerOption;
+    GameOptionsComponent.savedOptions.computerIsX = this.computerIsXOption;
   }
 
   randomFirstPlayer(): boolean {

@@ -1,12 +1,46 @@
 <nb-card>
   <nb-card-header>{{ title }}</nb-card-header>
   <nb-card-body>
-    <nb-radio-group [(value)]="xGoesFirstOption">
-      <nb-radio [value]="true">Player X goes first.</nb-radio>
-      <nb-radio [value]="false">Player O goes first.</nb-radio>
-      <nb-radio [value]="randomFirstPlayer">Random Player goes first.</nb-radio>
-      <nb-radio [value]="alternateFirstPlayer">Alternate who goes first.</nb-radio>
-    </nb-radio-group>
+    <nb-accordion>
+      <nb-accordion-item>
+       <nb-accordion-item-header>Who goes first?</nb-accordion-item-header>
+       <nb-accordion-item-body>
+        <nb-radio-group [(value)]="xGoesFirstOption">
+          <nb-radio [value]="true">Player X goes first.</nb-radio>
+          <nb-radio [value]="false">Player O goes first.</nb-radio>
+          <nb-radio [value]="randomFirstPlayer">Random Player goes first.</nb-radio>
+          <nb-radio [value]="alternateFirstPlayer">Alternate who goes first.</nb-radio>
+        </nb-radio-group>
+       </nb-accordion-item-body>
+      </nb-accordion-item>
+      <nb-accordion-item>
+        <nb-accordion-item-header>Computer Player</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div>
+            <nb-toggle [(checked)]="vsComputerOption">Vs Computer</nb-toggle>
+          </div>
+          <div *ngIf="vsComputerOption" id="computer_options">
+            <nb-toggle [(checked)]="computerIsXOption">Computer plays as {{computerIsXOption ? 'X' : 'O'}}</nb-toggle>
+            <br />
+            <nb-select [(selected)]="computerDifficultyOption" placeholder="Difficulty">
+              <nb-option value="0">Easy</nb-option>
+              <nb-option value="1">Hard</nb-option>
+            </nb-select>
+            <div *ngIf="computerDifficultyOption != 0">Feature not yet implemented.</div>
+            <br *ngIf="computerDifficultyOption == 0" />
+            <nb-toggle [(checked)]="computerVsComputerOption">Computer Vs Computer</nb-toggle>
+            <div *ngIf="computerVsComputerOption">Feature not yet implemented.</div>
+          </div>
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+      <nb-accordion-item>
+        <nb-accordion-item-header>About</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div>Home: <a href="https://dapirra.github.io/tic_tac_toe/" target="_blank" rel="noopener noreferrer">dapirra.github.io/tic_tac_toe</a></div>
+          <div>Source: <a href="https://github.com/dapirra/tic-tac-toe/" target="_blank" rel="noopener noreferrer">github.com/dapirra/tic-tac-toe</a></div>
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+     </nb-accordion>
   </nb-card-body>
   <nb-card-footer>
     <button id="beginButton" nbButton hero status="primary" (click)="begin()">Begin</button>
