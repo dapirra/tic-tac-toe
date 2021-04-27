@@ -106,7 +106,7 @@ export class BoardComponent implements OnInit {
         this.xIsNext = !this.xIsNext;
         setTimeout(() => {
           if (this.availableSquares.size !== 0 && this.winner === null) {
-            let move = Array.from(this.availableSquares.values())[Math.floor(Math.random() * this.availableSquares.size)];
+            let move = this.computerEasyMove();
             this.squares[move] = this.computerIsX ? 'X' : 'O'; // Set value to current player
             this.availableSquares.delete(move);
             this.computersTurn = !this.computersTurn;
@@ -134,5 +134,9 @@ export class BoardComponent implements OnInit {
         return;
       }
     }
+  }
+
+  private computerEasyMove() {
+    return Array.from(this.availableSquares.values())[Math.floor(Math.random() * this.availableSquares.size)];
   }
 }
