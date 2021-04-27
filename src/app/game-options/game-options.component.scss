@@ -14,3 +14,7 @@ button {
 nb-accordion-item-body nb-toggle, nb-accordion-item-body nb-select {
   padding: 0.375rem 0;
 }
+
+nb-card-body {
+  scrollbar-width: thin; // Firefox Scrollbar
+}
