@@ -102,19 +102,23 @@ export class BoardComponent implements OnInit {
       this.calculateWinner();
 
       if (this.vsComputer) {
-        this.xIsNext = !this.xIsNext;
-        setTimeout(() => {
-          if (this.availableSquares.size !== 0 && this.winner === null) {
-            let move = this.computerEasyMove();
-            this.squares[move] = this.computerIsX ? 'X' : 'O'; // Set value to current player
-            this.availableSquares.delete(move);
-            this.computersTurn = !this.computersTurn;
-            this.calculateWinner();
-          }
-          this.xIsNext = !this.xIsNext;
-        }, 1000);
+        this.makeComputerMove();
       }
     }
+  }
+
+  private makeComputerMove() {
+    this.xIsNext = !this.xIsNext;
+    setTimeout(() => {
+      if (this.availableSquares.size !== 0 && this.winner === null) {
+        let move = this.computerEasyMove();
+        this.squares[move] = this.computerIsX ? 'X' : 'O'; // Set value to current player
+        this.availableSquares.delete(move);
+        this.calculateWinner();
+        this.computersTurn = !this.computersTurn;
+      }
+      this.xIsNext = !this.xIsNext;
+    }, 1000);
   }
 
   calculateWinner() {
