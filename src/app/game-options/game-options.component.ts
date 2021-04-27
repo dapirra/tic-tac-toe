@@ -31,6 +31,10 @@ export class GameOptionsComponent implements OnInit {
   }
 
   begin() {
+    if (!this.vsComputerOption) {
+      // Make sure this is false when vsComputerOption is
+      this.computerVsComputerOption = false;
+    }
     this.saveData();
     this.ref.close({
       ...GameOptionsComponent.savedOptions
