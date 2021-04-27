@@ -48,7 +48,6 @@ export class BoardComponent implements OnInit {
     this.xGoesFirst = xGoesFirst;
     this.vsComputer = vsComputer;
     this.computerIsX = computerIsX;
-    this.computersTurn = false;
     this.newGame();
   }
 
