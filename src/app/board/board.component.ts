@@ -86,12 +86,11 @@ export class BoardComponent implements OnInit {
   }
 
   makeMove(index: number) {
-    // Do not allow any moves to be made if there is a winner or computer's turn
-    if (this.winner !== null || this.computersTurn) {
-      return;
-    }
-
-    if (!this.squares[index]) { // If move is on an empty square
+    if (
+      !this.squares[index] && // If move is not on an empty square and
+      !this.computersTurn && // If it's not the computer's turn and
+      this.winner === null // If a winner has not been determined
+    ) {
       if (this.vsComputer) {
         this.computersTurn = !this.computersTurn;
       }
