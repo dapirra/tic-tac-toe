@@ -20,14 +20,14 @@
             <nb-toggle [(checked)]="vsComputerOption">Vs Computer</nb-toggle>
           </div>
           <div *ngIf="vsComputerOption" id="computer_options">
-            <nb-toggle [(checked)]="computerIsXOption" [disabled]="computerVsComputerOption">Computer plays as {{computerIsXOption ? 'X' : 'O'}}</nb-toggle>
-            <br />
             <nb-select [(selected)]="computerDifficultyOption" placeholder="Difficulty">
               <nb-option value="0">Easy</nb-option>
               <nb-option value="1">Hard</nb-option>
             </nb-select>
             <div *ngIf="computerDifficultyOption != 0">Feature not yet implemented.</div>
             <br *ngIf="computerDifficultyOption == 0" />
+            <nb-toggle [(checked)]="computerIsXOption" [disabled]="computerVsComputerOption">Computer plays as {{computerIsXOption ? 'X' : 'O'}}</nb-toggle>
+            <br />
             <nb-toggle [(checked)]="computerVsComputerOption">Computer Vs Computer</nb-toggle>
           </div>
         </nb-accordion-item-body>
