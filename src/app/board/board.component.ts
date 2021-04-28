@@ -65,8 +65,6 @@ export class BoardComponent implements OnInit {
     this.computersTurn = false;
     this.computerGoesFirst = this.vsComputer && (this.xIsNext === this.computerIsX);
     if (this.computerVsComputer) {
-      // this.xIsNext = !this.computerIsX;
-      // this.computerIsX = !this.xIsNext;
       this.xIsNext = !this.xIsNext;
       this.makeComputerMove();
     } else if (this.computerGoesFirst) {
