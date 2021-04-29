@@ -23,7 +23,7 @@ export class GameOptionsComponent implements OnInit {
     'computerDifficulty': 0,
   };
 
-  constructor(protected ref: NbDialogRef<GameOptionsComponent>) {}
+  constructor(protected ref: NbDialogRef<GameOptionsComponent>) { }
 
   ngOnInit(): void {
     document.getElementById('beginButton').focus();

@@ -20,7 +20,7 @@ export class BoardComponent implements OnInit {
   availableSquares: Set<number>;
   private static winningLines: number[][];
 
-  constructor(private dialogService: NbDialogService) {}
+  constructor(private dialogService: NbDialogService) { }
 
   ngOnInit(): void {
     this.newGameOptions();
@@ -42,11 +42,11 @@ export class BoardComponent implements OnInit {
    * @param xGoesFirst True for X first, false for O first, null for random.
    */
   newGameOptions(
-      xGoesFirst: boolean | null = true,
-      vsComputer: boolean = false,
-      computerIsX: boolean = false,
-      computerVsComputer: boolean = false,
-    ) {
+    xGoesFirst: boolean | null = true,
+    vsComputer: boolean = false,
+    computerIsX: boolean = false,
+    computerVsComputer: boolean = false,
+  ) {
     this.xGoesFirst = xGoesFirst;
     this.vsComputer = vsComputer;
     this.computerIsX = computerIsX;
@@ -127,7 +127,7 @@ export class BoardComponent implements OnInit {
 
         if (this.computerVsComputer) {
           this.xIsNext = !this.xIsNext;
-          this.makeComputerMove()
+          this.makeComputerMove();
         } else {
           this.computersTurn = !this.computersTurn;
         }
