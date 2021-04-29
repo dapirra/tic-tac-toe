@@ -8,6 +8,7 @@ import { GameOptionsComponent } from './../game-options/game-options.component';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  gameID: number;
   squares: string[];
   xGoesFirst: boolean | Function;
   xIsNext: boolean;
@@ -23,6 +24,7 @@ export class BoardComponent implements OnInit {
   constructor(private dialogService: NbDialogService) { }
 
   ngOnInit(): void {
+    this.gameID = 0;
     this.newGameOptions();
     BoardComponent.winningLines = [
       [0, 4, 8], // Back Diagonal \
@@ -58,6 +60,7 @@ export class BoardComponent implements OnInit {
    * Start a new game with the current options.
    */
   newGame() {
+    this.gameID++;
     this.squares = Array(9).fill(null);
     this.winner = null;
     this.xIsNext = (typeof this.xGoesFirst === 'function' ? this.xGoesFirst() : this.xGoesFirst);
@@ -116,8 +119,12 @@ export class BoardComponent implements OnInit {
   }
 
   private makeComputerMove() {
+    let tempGameID = this.gameID;
     this.xIsNext = !this.xIsNext;
     setTimeout(() => {
+      if (tempGameID !== this.gameID) {
+        return; // Prevent the computer from making a move in a completely different match
+      }
       if (this.availableSquares.size !== 0 && this.winner === null) {
         let move = this.computerEasyMove();
         this.squares[move] = this.computerVsComputer ? this.player : (this.computerIsX ? 'X' : 'O');
