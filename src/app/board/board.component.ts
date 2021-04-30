@@ -102,7 +102,9 @@ export class BoardComponent implements OnInit {
       !this.computerVsComputer // If the computer is not versing itself
     ) {
       this.squares[index] = this.player; // Set value to current player
-      this.availableSquares.delete(index);
+      this.availableSquares.delete(index); // <--@
+      // @-- Delete square from the set of available squares.
+      // This helps the computer to determine which squares are left.
 
       this.calculateWinner();
 
@@ -120,7 +122,7 @@ export class BoardComponent implements OnInit {
     this.xIsNext = !this.xIsNext;
     setTimeout(() => {
       if (tempGameID !== this.gameID) {
-        return; // Prevent the computer from making a move in a completely different match
+        return; // Prevent computer from accidentally making a move in the next match
       }
       if (this.availableSquares.size !== 0 && this.winner === null) {
         let move = this.computerEasyMove();
