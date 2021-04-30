@@ -101,19 +101,16 @@ export class BoardComponent implements OnInit {
       this.winner === null && // If a winner has not been determined and
       !this.computerVsComputer // If the computer is not versing itself
     ) {
-      if (this.vsComputer) {
-        this.computersTurn = !this.computersTurn;
-      }
-
       this.squares[index] = this.player; // Set value to current player
-      if (!this.vsComputer) {
-        this.xIsNext = !this.xIsNext; // Set it to the next players turn
-      }
       this.availableSquares.delete(index);
+
       this.calculateWinner();
 
       if (this.vsComputer) {
+        this.computersTurn = !this.computersTurn;
         this.makeComputerMove();
+      } else {
+        this.xIsNext = !this.xIsNext; // Set it to the next players turn
       }
     }
   }
