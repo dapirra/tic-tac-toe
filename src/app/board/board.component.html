@@ -1,13 +1,13 @@
-<h1 *ngIf="availableSquares.size !== 0 && !winner">
-  Current Player: {{player}}
-</h1>
-
-<h1 *ngIf="winner">
-  Player {{winner}} won!
-</h1>
-
-<h1 *ngIf="availableSquares.size === 0 && !winner">
-  It's a draw!
+<h1>
+  <ng-container *ngIf="availableSquares.size !== 0 && !winner">
+    Current Player: {{player}}
+  </ng-container>
+  <ng-container *ngIf="winner">
+    Player {{winner}} won!
+  </ng-container>
+  <ng-container *ngIf="availableSquares.size === 0 && !winner">
+    It's a draw!
+  </ng-container>
 </h1>
 
 <div class="buttons">
