@@ -3,10 +3,12 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-square',
   template: `
-    <button nbButton *ngIf="!value">{{ value }}</button>
-    <button nbButton *ngIf="value == 'X'" hero status="success">{{ value }}</button>
-    <button nbButton *ngIf="value == 'O'" hero status="info">{{ value }}</button>
-    <button nbButton *ngIf="value?.length > 1" hero status="warning">{{ value.charAt(0) }}</button>
+    <button nbButton [hero]="!!value" [status]="
+      value == 'X' ? 'success' :
+      value == 'O' ? 'info' :
+      value?.length > 1 ? 'warning' : '' ">
+        {{ value?.charAt(0) }}
+    </button>
   `,
   styles: [`
     button {
