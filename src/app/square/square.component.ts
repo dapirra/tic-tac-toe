@@ -4,8 +4,8 @@ import { Component, Input } from '@angular/core';
   selector: 'app-square',
   template: `
     <button nbButton [hero]="!!value" [status]="
-      value == 'X' ? 'success' :
-      value == 'O' ? 'info' :
+      value === 'X' ? 'success' :
+      value === 'O' ? 'info' :
       value?.length > 1 ? 'warning' : '' ">
         {{ value?.charAt(0) }}
     </button>
