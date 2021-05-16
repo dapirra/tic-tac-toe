@@ -7,21 +7,21 @@ import { NbDialogRef } from '@nebular/theme';
   styleUrls: ['./game-options.component.scss']
 })
 export class GameOptionsComponent implements OnInit {
+  private static alternatePlayer = true;
+  private static savedOptions = {
+    xGoesFirst: true,
+    vsComputer: false,
+    computerIsX: false,
+    computerVsComputer: false,
+    computerDifficulty: 0,
+  };
 
-  @Input() title: string = 'Game Options';
+  @Input() title = 'Game Options';
   xGoesFirstOption: boolean | null;
   vsComputerOption: boolean;
   computerIsXOption: boolean;
   computerDifficultyOption: number;
   computerVsComputerOption: boolean;
-  private static alternatePlayer = true;
-  private static savedOptions = {
-    'xGoesFirst': true,
-    'vsComputer': false,
-    'computerIsX': false,
-    'computerVsComputer': false,
-    'computerDifficulty': 0,
-  };
 
   constructor(protected ref: NbDialogRef<GameOptionsComponent>) { }
 
@@ -30,7 +30,7 @@ export class GameOptionsComponent implements OnInit {
     this.loadData();
   }
 
-  begin() {
+  begin(): void {
     if (!this.vsComputerOption) {
       // Make sure this is false when vsComputerOption is
       this.computerVsComputerOption = false;
@@ -41,7 +41,7 @@ export class GameOptionsComponent implements OnInit {
     });
   }
 
-  private loadData() {
+  private loadData(): void {
     this.xGoesFirstOption = GameOptionsComponent.savedOptions.xGoesFirst;
     this.computerDifficultyOption = GameOptionsComponent.savedOptions.computerDifficulty;
     this.vsComputerOption = GameOptionsComponent.savedOptions.vsComputer;
@@ -49,7 +49,7 @@ export class GameOptionsComponent implements OnInit {
     this.computerVsComputerOption = GameOptionsComponent.savedOptions.computerVsComputer;
   }
 
-  private saveData() {
+  private saveData(): void {
     GameOptionsComponent.savedOptions.xGoesFirst = this.xGoesFirstOption;
     GameOptionsComponent.savedOptions.computerDifficulty = this.computerDifficultyOption;
     GameOptionsComponent.savedOptions.vsComputer = this.vsComputerOption;

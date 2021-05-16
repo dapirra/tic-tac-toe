@@ -8,9 +8,11 @@ import { GameOptionsComponent } from './../game-options/game-options.component';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  private static winningLines: number[][];
+
   gameID: number;
   squares: string[];
-  xGoesFirst: boolean | Function;
+  xGoesFirst: boolean | (() => boolean);
   xIsNext: boolean;
   winner: string;
   vsComputer: boolean;
@@ -19,7 +21,6 @@ export class BoardComponent implements OnInit {
   computersTurn: boolean;
   computerVsComputer: boolean;
   availableSquares: Set<number>;
-  private static winningLines: number[][];
 
   constructor(private dialogService: NbDialogService) { }
 
@@ -48,7 +49,7 @@ export class BoardComponent implements OnInit {
     vsComputer: boolean = false,
     computerIsX: boolean = false,
     computerVsComputer: boolean = false,
-  ) {
+  ): void {
     this.xGoesFirst = xGoesFirst;
     this.vsComputer = vsComputer;
     this.computerIsX = computerIsX;
@@ -59,7 +60,7 @@ export class BoardComponent implements OnInit {
   /**
    * Start a new game with the current options.
    */
-  newGame() {
+  newGame(): void {
     this.gameID++;
     this.squares = Array(9).fill(null);
     this.winner = null;
@@ -76,7 +77,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  showDialog() {
+  showDialog(): void {
     const gameOptionsDialog = this.dialogService.open(GameOptionsComponent);
     gameOptionsDialog.onClose.toPromise().then(config => {
       if (config) {
@@ -90,11 +91,11 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  get player() {
+  get player(): string {
     return this.xIsNext ? 'X' : 'O';
   }
 
-  makeMove(index: number) {
+  makeMove(index: number): void {
     if (
       !this.squares[index] && // If move is not on an empty square and
       !this.computersTurn && // If it's not the computer's turn and
@@ -117,15 +118,15 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  private makeComputerMove() {
-    let tempGameID = this.gameID;
+  private makeComputerMove(): void {
+    const tempGameID = this.gameID;
     this.xIsNext = !this.xIsNext;
     setTimeout(() => {
       if (tempGameID !== this.gameID) {
         return; // Prevent computer from accidentally making a move in the next match
       }
       if (this.availableSquares.size !== 0 && this.winner === null) {
-        let move = this.computerEasyMove();
+        const move = this.computerEasyMove();
         this.squares[move] = this.computerVsComputer ? this.player : (this.computerIsX ? 'X' : 'O');
         this.availableSquares.delete(move);
 
@@ -142,9 +143,9 @@ export class BoardComponent implements OnInit {
     }, this.computerVsComputer ? 250 : 750);
   }
 
-  calculateWinner() {
+  calculateWinner(): void {
     // Loop through all win cases to see if a player won
-    for (let line of BoardComponent.winningLines) {
+    for (const line of BoardComponent.winningLines) {
       const [a, b, c] = line;
       if ( // @-- Make sure the square is defined; can't have 3 nulls in a row
         this.squares[a] && // <--@
@@ -152,7 +153,7 @@ export class BoardComponent implements OnInit {
         this.squares[a] === this.squares[c]
       ) { // When there is 3 in a row...
         this.winner = this.squares[a]; // Set the winner
-        for (let index of line) { // Mark the 3 that are in a row
+        for (const index of line) { // Mark the 3 that are in a row
           this.squares[index] += '!';
         }
         return;
@@ -160,7 +161,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  private computerEasyMove() {
+  private computerEasyMove(): number {
     return Array.from(this.availableSquares.values())[Math.floor(Math.random() * this.availableSquares.size)];
   }
 }
