@@ -1,13 +1,5 @@
 <h1>
-  <ng-container *ngIf="availableSquares.size !== 0 && !winner">
-    Current Player: {{player}}
-  </ng-container>
-  <ng-container *ngIf="winner">
-    Player {{winner}} won!
-  </ng-container>
-  <ng-container *ngIf="availableSquares.size === 0 && !winner">
-    It's a draw!
-  </ng-container>
+  {{ headerText }}
 </h1>
 
 <div class="buttons">

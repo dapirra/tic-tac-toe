@@ -161,6 +161,16 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  get headerText(): string {
+    if (this.winner) {
+      return `Player ${this.winner} won!`;
+    } else if (this.availableSquares.size === 0) {
+      return `It's a draw!`;
+    } else {
+      return `Current Player: ${this.player}`;
+    }
+  }
+
   private computerEasyMove(): number {
     return Array.from(this.availableSquares.values())[Math.floor(Math.random() * this.availableSquares.size)];
   }
