@@ -19,6 +19,7 @@
           "options": {
             "outputPath": "dist/tic-tac-toe",
             "index": "src/index.html",
+            "inlineStyleLanguage": "scss",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
