@@ -17,6 +17,7 @@
 <main>
   <app-square
     *ngFor="let val of squares; let i = index"
+    [id]="'square' + i"
     [value]="val"
     (click)="makeMove(i)">
   </app-square>
